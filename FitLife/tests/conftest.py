@@ -11,11 +11,13 @@ SCRIPT_PATH = BASE_DIR / "fit_life.py"
 
 @pytest.fixture(scope="session")
 def file_path():
+    """Возвращает путь к файлу fit_life.py."""
     return SCRIPT_PATH
 
 
 @pytest.fixture(scope="session")
 def source_code(file_path):
+    """Читает и возвращает исходный код fit_life.py."""
     assert file_path.exists(), (
         "Не найден файл `fit_life.py`.\n"
         "Проверьте, что основной файл проекта называется `fit_life.py` "
@@ -26,13 +28,17 @@ def source_code(file_path):
 
 @pytest.fixture(scope="session")
 def ast_tree(source_code):
+    """Парсит исходный код и возвращает AST-дерево."""
     import ast
     return ast.parse(source_code)
 
 
 @pytest.fixture
 def run_program(file_path):
+    """Возвращает функцию запуска fit_life.py с заданным вводом."""
+
     def _run(user_input):
+        """Запускает программу и возвращает её stdout."""
         result = subprocess.run(
             [sys.executable, str(file_path)],
             input=user_input,

@@ -16,3 +16,4 @@ def test_2_syntax_errors(source_code):
             "В коде обнаружена синтаксическая ошибка.\n"
             f"{error.__class__.__name__}: {error}"
         )
+    
